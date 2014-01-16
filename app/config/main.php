@@ -1,4 +1,6 @@
 <?php
+
+
 /**
  *
  * main.php configuration file
