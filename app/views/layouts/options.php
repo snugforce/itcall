@@ -8,5 +8,6 @@
 			<?php echo TbHtml::buttonGroup($this->menu); ?>
 		</div>
 	</div>
+    <hr>
 	<?php echo $content; ?>
 <?php $this->endContent(); ?>

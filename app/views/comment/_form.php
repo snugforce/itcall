@@ -20,12 +20,16 @@
 	<br/>
 
     <?php //echo $form->errorSummary($model); ?>
-			
-			<?php echo $form->dropDownListControlGroup($model,'status_id', 
-				CHtml::listData(Status::model()->findAll(),'id','name'), 
-				array('span'=>5,'empty' => Yii::t('main','Select status...'),'displaySize'=>0)); ?>
 
-            <?php echo $form->textAreaControlGroup($model,'txt',array('rows'=>6,'span'=>5)); ?>
+            <?php //echo $form->checkBoxControlGroup($model,'checkStatus', array('label' => Yii::t('main','Change status'),'checked'=>'checked'));
+            ?>
+            <?php echo $form->dropDownListControlGroup($model,'status_id',
+				CHtml::listData(Status::model()->findAll(),'id','name'),
+				array('span'=>4,'empty' => Yii::t('main','Select status...'),'displaySize'=>0));
+            ?>
+
+
+            <?php echo $form->textAreaControlGroup($model,'txt',array('rows'=>6,'span'=>4)); ?>
 
         <div class="form-actions">
         <?php echo TbHtml::submitButton($model->isNewRecord ? 'Create' : 'Save',array(

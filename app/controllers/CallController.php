@@ -75,6 +75,7 @@ class CallController extends EController
 		$this->performAjaxValidation($model);
 		
 		$comment=$this->newComment($model);
+        $comment->status_id = $model->attributes['status_id'];
 		
         $this->render('view',array(
             'model'=>$model,

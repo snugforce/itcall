@@ -17,67 +17,77 @@ array('label'=>'List Call', 'url'=>array('index')),
 //array('label'=>'Manage Call', 'url'=>array('admin')),
 );
 ?>
+<div class="row">
+    <div class="span6">
+        <div class="row">
+            <div class="span3">
+                <h3><?php echo Yii::t('main','Number').': '; ?></h3>
+            </div>
+            <div class="span3">
+                <h3><?php echo TbHtml::b($model->id); ?></h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span3">
+                <h3><?php echo Yii::t('main','Create Time').': '; ?></h3>
+            </div>
+            <div class="span3">
+                <h3><?php echo TbHtml::b(date( "d.m.y H:i",  $model->create_time)); ?></h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span3">
+                <h3><?php echo Yii::t('main','Office').': '; ?></h3>
+            </div>
+            <div class="span3">
+                <h3><?php echo TbHtml::b($model->office); ?></h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span3">
+                <h3><?php echo Yii::t('main','Category').': '; ?></h3>
+            </div>
+            <div class="span3">
+                <h3><?php echo TbHtml::b($model->category->name); ?></h3>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="span6">
+                <?php echo TbHtml::lead(nl2br(CHtml::encode($model->txt)));
+                ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+            <?php echo Yii::t('main','Update Time').': '.
+                TbHtml::b(date( "d.m.y H:i",  $model->update_time)).', '.
+                TbHtml::well($model->status->name, array('style'=>'background-color:'.$model->status->color.';')); ?>
+            </div>
+        </div>
 
-<?php $this->widget('bootstrap.widgets.TbDetailView',array(
-'htmlOptions' => array(
-'class' => 'table table-striped table-condensed table-hover',
-),
-'data'=>$model,
-	'attributes'=>array(
-        array(               
-			'name' => 'id',
-			'label' => '#',
-		),
-        array(               
-			'name' => 'office',
-        ),
-        array(               
-			'name' => 'name',
-        ),		
-        array(               
-			'name' => 'group_id',
-			'value' => $model->group->name,
-		),		
-        array(               
-			'name' => 'category_id',
-			'value' => $model->category->name,
-		),			
-        array(               
-			'name' => 'create_time',
-			'value' => date( "d.m.y H:i",  $model->create_time),
-		),			
-        array(               
-			'name' => 'update_time',
-			'value' => date( "d.m.y H:i",  $model->update_time),
-		),			
-        array(               
-			'name' => 'status_id',
-			'value' => $model->status->name,			
-		),	
-        array(               
-			'name' => 'txt',
-        ),
-      ),
-)); ?>
-<hr>
-<div id="comments">
-    <?php if($model->commentCount>=1): ?>
-
-        <h3>
-            <?php echo TbHtml::icon(TbHtml::ICON_PENCIL).' ' .
-                Yii::t('main','comments '). '(' . $model->commentCount . ')'; ?>
-        </h3>
- 
-        <?php $this->renderPartial('_comments',array(
-            'call'=>$model,
-            'comments'=>$model->comments,
-        )); ?>
-    <?php endif; ?>
-    <hr>
-    <h3><?php echo Yii::t('main','Add comment'); ?></h3>
- 
+        <?php if(!Yii::app()->user->isGuest): ?>
+        <hr>
+        <h3><?php echo Yii::t('main','Add comment'); ?></h3>
         <?php $this->renderPartial('/comment/_form',array(
             'model'=>$comment,
         )); ?>
- 
-</div><!-- comments -->
+        <?php endif; ?>
+    </div>
+    <?php if(!Yii::app()->user->isGuest): ?>
+    <div class="span6">
+        <?php if($model->commentCount>=1): ?>
+
+            <h3>
+                <?php echo TbHtml::icon(TbHtml::ICON_PENCIL).' ' .
+                    Yii::t('main','comments '). '(' . $model->commentCount . ')'; ?>
+            </h3>
+
+            <?php $this->renderPartial('_comments',array(
+                'call'=>$model,
+                'comments'=>$model->comments,
+            )); ?>
+        <?php endif; ?>
+    </div>
+    <?php endif; ?>
+</div>

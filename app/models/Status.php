@@ -6,6 +6,7 @@
  * The followings are the available columns in table '{{status}}':
  * @property integer $id
  * @property string $name
+ * @property string $color
  *
  * The followings are the available model relations:
  * @property Call[] $calls
@@ -58,6 +59,7 @@ class Status extends CActiveRecord
 		return array(
 			'id' => '#',
 			'name' => Yii::t('main', 'Name'),
+            'color' => 'Color',
 		);
 	}
 

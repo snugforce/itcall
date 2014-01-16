@@ -23,7 +23,7 @@
  */
 class Call extends CActiveRecord
 {
-	/**
+    /**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
@@ -125,6 +125,8 @@ class Call extends CActiveRecord
 	{
 		$comment->call_id=$this->id;
 		$comment->user_id=Yii::app()->user->id;
+        $this->status_id=$comment->status_id;
+        $this->save();
 		return $comment->save();
 	}
 

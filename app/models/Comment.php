@@ -18,7 +18,8 @@
  */
 class Comment extends CActiveRecord
 {
-	/**
+    public $checkStatus;
+    /**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
