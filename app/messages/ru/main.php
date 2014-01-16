@@ -48,5 +48,6 @@ return array(
 		 
 		 /* Call */
 		 'comments ' => 'комментарии ',
-		 'Add comment' => 'Добавить комментарий'
+		 'Add comment' => 'Добавить комментарий',
+         'Change status' => 'Изменить статус',
      );

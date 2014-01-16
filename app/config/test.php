@@ -9,7 +9,6 @@
  * @copyright 2013 2amigOS! Consultation Group LLC
  * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
  */
- // test
 return array(
 	'params' => array(
 		'yii.handleErrors'   => false,

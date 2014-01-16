@@ -75,7 +75,7 @@ class CallController extends EController
 		$this->performAjaxValidation($model);
 		
 		$comment=$this->newComment($model);
-        $comment->status_id = $model->attributes['status_id'];
+        $comment->status_id = $model->status_id;
 		
         $this->render('view',array(
             'model'=>$model,
@@ -96,6 +96,7 @@ class CallController extends EController
 		if(isset($_POST['Comment']))
 		{
 			$comment->attributes=$_POST['Comment'];
+            if ($comment->status_id == null){$comment->status_id = $model->status_id;}
 			if($model->addComment($comment))
 			{
 				$this->refresh();
