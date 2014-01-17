@@ -175,11 +175,18 @@ class CallController extends EController
 	/**
 	 * Lists all models.
 	 */
-	public function actionIndex()
+	public function actionIndex($status_id=null)
 	{
-		$dataProvider=new CActiveDataProvider('Call',
-			array(
-				'pagination'=>array(
+        $s = '';
+        if($status_id!=null)
+            $s = 'status_id='.$status_id;
+
+        $dataProvider=new CActiveDataProvider('Call', array(
+            'criteria'=>array(
+                'condition'=>$s,
+                'order'=>'create_time DESC',
+           ),
+			'pagination'=>array(
 				'pageSize'=>15,
 			),
 		));

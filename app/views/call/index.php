@@ -13,6 +13,16 @@ array('label'=>Yii::t('main','Add'), 'url'=>array('create')),
 );
 ?>
 
+<?php
+    $listData = array();
+    foreach(Status::model()->findAll() as $itm){
+        $listData[$itm->id]=array('label'=>$itm->name, 'url'=>'/call'.'?status_id='.$itm->id);
+    }
+    $listData['1']['class']='active';
+    echo TbHtml::buttonGroup($listData,
+        array('toggle' => TbHtml::BUTTON_TOGGLE_RADIO, 'color' => TbHtml::BUTTON_COLOR_PRIMARY));
+?>
+
 <?php $this->widget('bootstrap.widgets.TbGridView',array(
 	'type'=>'striped bordered condensed',
 	'dataProvider'=>$dataProvider,
