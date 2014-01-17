@@ -97,4 +97,14 @@ class Group extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public static function listData($group_id = null){
+        $listData = array();
+        foreach(Group::model()->findAll() as $itm){
+            $listData[$itm->id] = array('label'=>$itm->name, 'url'=>'/call'.'?group_id='.$itm->id);
+        }
+        $group_id = 2;
+        if ($group_id!=null){ $listData[$group_id]['class']='active';}
+        return $listData;
+    }
 }

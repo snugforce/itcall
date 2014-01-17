@@ -147,7 +147,7 @@ class Call extends CActiveRecord
 		{
 			if($this->isNewRecord)
 			{
-				$this->status_id = 1; // Выполнение
+				$this->status_id = 1; // Активный
 				$this->create_time=$this->update_time=time();
 				$this->ip=Yii::app()->request->userHostAddress;				
 			}

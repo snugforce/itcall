@@ -10,9 +10,6 @@
  * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
  */
 ?>
-
-
-
 <!DOCTYPE html>
 <!--[if lt IE 7]>
 <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -27,7 +24,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">		
 	<title></title>
 	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--
     <link rel="stylesheet" href="/css/bootstrap.css">
     -->
@@ -60,7 +57,9 @@
 <p class="chromeframe">Вы используете <strong>устаревший</strong> браузер. Пожалуйста <a href="http://browsehappy.com/">обновите ваш браузер</a> или <a href="http://www.google.com/chromeframe/?redirect=true">активируйте Google Chrome Frame</a>.</p>
 <![endif]-->
 
-<?php $this->widget('bootstrap.widgets.TbNavbar', array(
+<?php
+
+$this->widget('bootstrap.widgets.TbNavbar', array(
     'brandLabel' => Yii::t('main',Yii::app()->name),
     'display' => null, // default is static to top
     //'color' => TbHtml::NAVBAR_COLOR_INVERSE,
@@ -70,7 +69,7 @@
             'class' => 'bootstrap.widgets.TbNav',
             'items' => array(
                 array('label' => Yii::t('main','Home'), 'url' => '/',),
-                array('label' => Yii::t('main','Reference'), 'url' => '/',
+                array('label' => Yii::t('main','Reference'), 'url' => '#',
                     'items' => array(
                         array('label' => Yii::t('main','Status'), 'url' => '/Status'),
                         array('label' => Yii::t('main','Category'), 'url' => '/Category'),
@@ -79,6 +78,15 @@
                         //array('label' => 'Separate link', 'url' => '#'),
                     ),
                     'visible'=>(Yii::app()->user->Role == 'administrator'),
+                ),
+
+            ),
+        ),
+        array(
+            'class' => 'bootstrap.widgets.TbNav',
+            'items' => array(
+                array('label'=> Yii::t('main','Journals'), 'url'=>'#',
+                    'items' => Group::listData(),
                 ),
             ),
         ),

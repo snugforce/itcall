@@ -51,7 +51,7 @@ class CallController extends EController
 			*/
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				//'actions'=>array('index','view','admin','delete','create','update'),
-				'actions'=>array('index','view','admin','create'),
+				'actions'=>array('index','view','create'),
 				'roles' => array('administrator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -120,7 +120,7 @@ class CallController extends EController
 			$model->group_id = $group_id;
 			
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		 $this->performAjaxValidation($model);
 
 		if(isset($_POST['Call']))
 		{
@@ -144,7 +144,7 @@ class CallController extends EController
         $model=$this->loadModel('Call', $id);
 
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		 $this->performAjaxValidation($model);
 
 		if(isset($_POST['Call']))
 		{
@@ -169,45 +169,30 @@ class CallController extends EController
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
 	}
 
 	/**
 	 * Lists all models.
 	 */
-	public function actionIndex($status_id=null)
+	public function actionIndex($status_id=1,$group_id=null)
 	{
-        $s = '';
-        if($status_id!=null)
-            $s = 'status_id='.$status_id;
-
+        $criteria=new CDbCriteria;
+        $criteria->addCondition('status_id='.$status_id);
+        if($group_id!=null)
+          $criteria->addCondition('group_id='.$group_id);
+        $criteria->order = 'create_time DESC';
         $dataProvider=new CActiveDataProvider('Call', array(
-            'criteria'=>array(
-                'condition'=>$s,
-                'order'=>'create_time DESC',
-           ),
+            'criteria'=>$criteria,
 			'pagination'=>array(
-				'pageSize'=>15,
+				'pageSize'=>1,
 			),
 		));
 		
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
-		));
-	}
-
-	/**
-	 * Manages all models.
-	 */
-	public function actionAdmin()
-	{
-		$model=new Call('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Call']))
-			$model->attributes=$_GET['Call'];
-
-		$this->render('admin',array(
-			'model'=>$model,
+            'status_id'=>$status_id,
+            'group_id'=>$group_id,
 		));
 	}
 }

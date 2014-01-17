@@ -1,15 +1,14 @@
 <div class="row">
-    <div class="span8" >
+    <div class="span7" >
         <img class="" src="/img/peoples.png" alt=""/>
     </div>
-    <div class="span4 text-center">
+    <div class="span5 text-center">
 
     <?php
         $buttons = '';
         $ms = Group::model()->findAll();
         foreach($ms as $m)
         {
-            //TbHtml::buttonGroup()
             $buttons = $buttons .
                 TbHtml::linkButton($m['name'],
                     array(
@@ -21,8 +20,8 @@
         }
     ?>
     <?php $this->widget('bootstrap.widgets.TbHeroUnit', array(
-        'heading' => 'добавить заявку',
-        'content' => '<p>Для начала выберите раздел:</p>'.$buttons,
+        'heading' => Yii::t('main','Add call'),
+        'content' => '<p>'.Yii::t('main','Change group').'</p>'.$buttons,
     )); ?>
     </div>
 </div>

@@ -99,4 +99,13 @@ class Status extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public static function listData($status_id = null){
+        $listData = array();
+        foreach(Status::model()->findAll() as $itm){
+            $listData[$itm->id] = array('label'=>$itm->name, 'url'=>'/call'.'?status_id='.$itm->id);
+        }
+        if ($status_id!=null){ $listData[$status_id]['class']='active';}
+        return $listData;
+    }
 }

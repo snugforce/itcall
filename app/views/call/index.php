@@ -14,12 +14,7 @@ array('label'=>Yii::t('main','Add'), 'url'=>array('create')),
 ?>
 
 <?php
-    $listData = array();
-    foreach(Status::model()->findAll() as $itm){
-        $listData[$itm->id]=array('label'=>$itm->name, 'url'=>'/call'.'?status_id='.$itm->id);
-    }
-    $listData['1']['class']='active';
-    echo TbHtml::buttonGroup($listData,
+    echo TbHtml::buttonGroup(Status::listData($status_id),
         array('toggle' => TbHtml::BUTTON_TOGGLE_RADIO, 'color' => TbHtml::BUTTON_COLOR_PRIMARY));
 ?>
 

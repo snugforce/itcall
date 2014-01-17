@@ -69,7 +69,7 @@ array('label'=>'List Call', 'url'=>array('index')),
         <?php if(!Yii::app()->user->isGuest): ?>
         <hr>
         <h3><?php echo Yii::t('main','Add comment'); ?></h3>
-        <?php $this->renderPartial('/comment/_form',array(
+        <?php $this->renderPartial('_commentform',array(
             'model'=>$comment,
         )); ?>
         <?php endif; ?>
