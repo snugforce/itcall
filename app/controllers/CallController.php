@@ -185,7 +185,7 @@ class CallController extends EController
         $dataProvider=new CActiveDataProvider('Call', array(
             'criteria'=>$criteria,
 			'pagination'=>array(
-				'pageSize'=>1,
+				'pageSize'=>15,
 			),
 		));
 		
