@@ -175,24 +175,35 @@ class CallController extends EController
 	/**
 	 * Lists all models.
 	 */
-	public function actionIndex($status_id=1,$group_id=null)
+	public function actionIndex($status_id=null, $group_id=null)
 	{
-        $criteria=new CDbCriteria;
-        $criteria->addCondition('status_id='.$status_id);
-        if($group_id!=null)
-          $criteria->addCondition('group_id='.$group_id);
-        $criteria->order = 'create_time DESC';
-        $dataProvider=new CActiveDataProvider('Call', array(
-            'criteria'=>$criteria,
-			'pagination'=>array(
-				'pageSize'=>15,
-			),
-		));
+        $listData = Status::listData();
+        $i = 0;
+        foreach($listData as $itm){
+            $criteria=new CDbCriteria;
+            if($group_id!=null)
+                $criteria->addCondition('group_id='.$group_id);
+
+            $criteria->addCondition('status_id='.$itm['id']);
+
+            $criteria->order = 'create_time DESC';
+
+            $listData[$i]['dataProvider']=new CActiveDataProvider('Call',
+                array(
+                    'criteria'=>$criteria,
+                    'pagination'=>array(
+                    'pageSize'=>1,
+                    'pageVar'=>$itm['tab'].'_page',
+                    ),
+                ));
+            $i++;
+
+        }
 		
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-            'status_id'=>$status_id,
+			'listData'=>$listData,
             'group_id'=>$group_id,
+            'status_id'=>$status_id,
 		));
 	}
 }
