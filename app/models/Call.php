@@ -23,6 +23,7 @@
  */
 class Call extends CActiveRecord
 {
+    public $verifyCode;
     /**
 	 * @return string the associated database table name
 	 */
@@ -48,6 +49,12 @@ class Call extends CActiveRecord
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, name, group_id, category_id, ip, txt, office, create_time, update_time, status_id', 'safe', 'on'=>'search'),
+            array(
+                'verifyCode',
+                'captcha',
+                // авторизованным пользователям код можно не вводить
+                'allowEmpty'=>!Yii::app()->user->isGuest || !CCaptcha::checkRequirements(),
+            ),
 		);
 	}
 
@@ -84,6 +91,7 @@ class Call extends CActiveRecord
 			'create_time' => Yii::t('main', 'Create Time'),
 			'update_time' => Yii::t('main', 'Update Time'),
 			'status_id' => Yii::t('main', 'Status'),
+            'verifyCode' => 'Код проверки',
 		);
 	}
 

@@ -51,11 +51,11 @@ class CallController extends EController
 			*/
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				//'actions'=>array('index','view','admin','delete','create','update'),
-				'actions'=>array('index','view','create'),
+				'actions'=>array('index','view','create',),
 				'roles' => array('administrator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('index', 'create'),
+				'actions'=>array('index', 'view', 'create', 'captcha',),
 				'roles' => array('guest'),
 			),			
 			array('deny',  // deny all users
@@ -63,6 +63,18 @@ class CallController extends EController
 			),						
 		);
 	}
+
+    public function actions(){
+        return array(
+            'captcha'=>array(
+                'class'=>'CCaptchaAction',
+                'width'=>'120',
+                'height'=>'50',
+                'testLimit'=>'1',
+                'backColor'=>0xFFFFFF,
+            ),
+        );
+    }
 
 	/**
 	 * Displays a particular model.
@@ -126,7 +138,7 @@ class CallController extends EController
 		{
 			$model->attributes=$_POST['Call'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+                $this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('create',array(
@@ -198,7 +210,7 @@ class CallController extends EController
             array(
                 'criteria'=>$criteria,
                 'pagination'=>array(
-                    'pageSize'=>1,
+                    'pageSize'=>15,
                 ),
             ));
         //$group = new Group;

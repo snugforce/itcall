@@ -37,8 +37,17 @@
 
             <?php //echo $form->textFieldControlGroup($model,'update_time',array('span'=>5, 'class'=>'hide')); ?>
 
-            <?php //echo $form->dropDownListControlGroup($model,'status_id', CHtml::listData( Status::model()->findAll(),'id','name' ), array('span'=>5,'empty' => 'Something...','displaySize'=>0)); ?>			
-		
+            <?php //echo $form->dropDownListControlGroup($model,'status_id', CHtml::listData( Status::model()->findAll(),'id','name' ), array('span'=>5,'empty' => 'Something...','displaySize'=>0)); ?>
+
+    <?if(CCaptcha::checkRequirements() && Yii::app()->user->isGuest):?>
+        <?php //$form->textFieldControlGroup($model,'verifyCode',array('span'=>5,'maxlength'=>128)) ?>
+        <?=$form->labelEx($model, 'verifyCode')?>
+        <?$form->widget('CCaptcha')?>
+        <?=$form->textField($model, 'verifyCode')?>
+
+    <?endif;
+
+    ?>
 
         <div class="form-actions">
         <?php echo TbHtml::submitButton($model->isNewRecord ? Yii::t('main', 'Create') : Yii::t('main', 'Save'),array(
@@ -46,6 +55,8 @@
 		    'size'=>TbHtml::BUTTON_SIZE_LARGE,
 		)); ?>
     </div>
+
+
 
     <?php $this->endWidget(); ?>	
 
