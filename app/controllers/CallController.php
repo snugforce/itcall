@@ -177,33 +177,41 @@ class CallController extends EController
 	 */
 	public function actionIndex($status_id=null, $group_id=null)
 	{
-        $listData = Status::listData();
-        $i = 0;
-        foreach($listData as $itm){
-            $criteria=new CDbCriteria;
-            if($group_id!=null)
-                $criteria->addCondition('group_id='.$group_id);
+        if($status_id==null) $status_id = 1;
 
-            $criteria->addCondition('status_id='.$itm['id']);
-
-            $criteria->order = 'create_time DESC';
-
-            $listData[$i]['dataProvider']=new CActiveDataProvider('Call',
-                array(
-                    'criteria'=>$criteria,
-                    'pagination'=>array(
-                    'pageSize'=>1,
-                    'pageVar'=>$itm['tab'].'_page',
-                    ),
-                ));
-            $i++;
-
+        $prs = $_GET;
+        foreach(Status::model()->findAll() as $itm){
+            $prs['status_id'] = $itm->id;
+            $l1[$itm->id]=array('label'=>$itm->name, 'url'=>$this->createUrl($this->route, $prs));
         }
-		
+        $l1[$status_id]['class']='active';
+
+        $criteria=new CDbCriteria;
+        if($group_id!=null)
+            $criteria->addCondition('group_id='.$group_id);
+
+        $criteria->addCondition('status_id='.$status_id);
+
+        $criteria->order = 'create_time DESC';
+
+        $dataProvider=new CActiveDataProvider('Call',
+            array(
+                'criteria'=>$criteria,
+                'pagination'=>array(
+                    'pageSize'=>1,
+                ),
+            ));
+        //$group = new Group;
+        $group = null;
+        if ($group_id!=null) $group=Group::model()->findByPk($group_id);
+
+
 		$this->render('index',array(
-			'listData'=>$listData,
+            'dataProvider'=>$dataProvider,
             'group_id'=>$group_id,
+            'group'=>$group,
             'status_id'=>$status_id,
+            'buttons'=>$l1,
 		));
 	}
 }

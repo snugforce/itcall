@@ -38,7 +38,7 @@ return array(
     'Select group...' => 'Укажите группу...',
     'Select status...' => 'Укажите статус...',
 
-    'Journals' => 'Журналы',
+    'Journals' => 'Заявки',
 
     /* LoginForm */
     'Username'=>'Имя пользователя',

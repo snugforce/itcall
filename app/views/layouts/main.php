@@ -98,7 +98,6 @@ $this->widget('bootstrap.widgets.TbNavbar', array(
             ),
             'htmlOptions'=>array('class'=>'pull-right'),
         ),
-        
     ),
 )); ?>    
 <div class="container">
