@@ -67,13 +67,20 @@ class CallController extends EController
     public function actions(){
         return array(
             'captcha'=>array(
-                'class'=>'CCaptchaAction',
-                'width'=>'120',
-                'height'=>'50',
+                'class'=>'ECaptchaAction',
+                'width'=>'60',
+                'height'=>'30',
                 'testLimit'=>'1',
-                'backColor'=>0xFFFFFF,
+                'maxLength'=>4,
+                'minLength'=>4,
+                'backColor'=>0xEEEEEE,
+                'foreColor'=>0x0072E6,
+                'backend'=>null,
+                'offset'=>0,
+                'fontFile'=>'css\fonts\Den.otf',
             ),
         );
+
     }
 
 	/**
@@ -140,6 +147,7 @@ class CallController extends EController
 			if($model->save())
                 $this->redirect(array('view','id'=>$model->id));
 		}
+        $this->createAction('captcha')->getVerifyCode(True);
 
 		$this->render('create',array(
 			'model'=>$model,

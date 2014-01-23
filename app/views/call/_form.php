@@ -43,12 +43,13 @@
         echo '<div class="control-group">';
         echo $form->labelEx($model, 'verifyCode', array('class'=>'control-label'));
         echo '<div class="controls">';
-        echo $form->textField($model, 'verifyCode');
-        $form->widget('CCaptcha');
-        echo '</div>';
+        echo $form->textField($model, 'verifyCode',array('span'=>1,'maxlength'=>4,'class'=>'offset1', 'type'=>'number'));
+        $form->widget('CCaptcha', array('showRefreshButton'=>false, 'clickableImage'=>true,
+            'imageOptions' => array('title' => 'Обновить', 'style' => 'cursor: pointer;',)));
+
 
         echo '</div>';
-
+        echo '</div>';
     }
     ?>
 
