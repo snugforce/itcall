@@ -91,7 +91,7 @@ class Call extends CActiveRecord
 			'create_time' => Yii::t('main', 'Create Time'),
 			'update_time' => Yii::t('main', 'Update Time'),
 			'status_id' => Yii::t('main', 'Status'),
-            'verifyCode' => 'Код проверки',
+            'verifyCode' => Yii::t('main', 'Captcha'),
 		);
 	}
 

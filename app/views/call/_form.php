@@ -39,14 +39,17 @@
 
             <?php //echo $form->dropDownListControlGroup($model,'status_id', CHtml::listData( Status::model()->findAll(),'id','name' ), array('span'=>5,'empty' => 'Something...','displaySize'=>0)); ?>
 
-    <?if(CCaptcha::checkRequirements() && Yii::app()->user->isGuest):?>
-        <?php //$form->textFieldControlGroup($model,'verifyCode',array('span'=>5,'maxlength'=>128)) ?>
-        <?=$form->labelEx($model, 'verifyCode')?>
-        <?$form->widget('CCaptcha')?>
-        <?=$form->textField($model, 'verifyCode')?>
+    <?if(CCaptcha::checkRequirements() && Yii::app()->user->isGuest){
+        echo '<div class="control-group">';
+        echo $form->labelEx($model, 'verifyCode', array('class'=>'control-label'));
+        echo '<div class="controls">';
+        echo $form->textField($model, 'verifyCode');
+        $form->widget('CCaptcha');
+        echo '</div>';
 
-    <?endif;
+        echo '</div>';
 
+    }
     ?>
 
         <div class="form-actions">

@@ -17,7 +17,7 @@ $this->menu=array(
 <h2><?php if (!is_null($group)) {echo $group->attributes['name'];}else {echo '';}?></h2>
 <?php
     echo TbHtml::buttonGroup($buttons,
-        array('toggle' => TbHtml::BUTTON_TOGGLE_RADIO, 'color' => TbHtml::BUTTON_COLOR_PRIMARY, 'class'=>'pull-right'));
+        array('toggle' => TbHtml::BUTTON_TOGGLE_RADIO, 'color' => TbHtml::BUTTON_COLOR_PRIMARY, ));// 'class'=>'pull-right'
 ?>
 
 <?php
@@ -32,7 +32,7 @@ $this->menu=array(
             array('name' => 'category_id', 'htmlOptions' => array('style' =>'width: 100px'), 'sortable' => false, 'value'=>'$data->category->name',),
             array('name' => 'txt', 'htmlOptions' => array('style' =>''), 'sortable' => false,),
             array('name' => 'create_time', 'htmlOptions' => array('style' =>'width: 100px'), 'sortable' => false, 'value'=>'date( "d.m.y H:i",  $data->create_time)',),
-            array('class'=>'bootstrap.widgets.TbButtonColumn', 'htmlOptions' => array('nowrap'=>'nowrap', 'style'=>'width: 20px;'),	'template'=>'{view}', 'visible'=>Yii::app()->user->role == "administrator",),
+            array('class'=>'bootstrap.widgets.TbButtonColumn', 'htmlOptions' => array('nowrap'=>'nowrap', 'style'=>'width: 20px;'),	'template'=>'{view}',),
         ),
     ));
 ?>

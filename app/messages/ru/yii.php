@@ -111,7 +111,7 @@ return array (
   'Failed to write the uploaded file "{file}" to disk.' => 'Не удалось записать загруженный файл "{file}" на диск.',
   'Filter "{filter}" is invalid. Controller "{class}" does not have the filter method "filter{filter}".' => 'Фильтр "{filter}" неверный. Контроллер "{class}" не содержит метода "filter{filter}".',
   'GD with FreeType or ImageMagick PHP extensions are required.' => 'Требуются расширения PHP GD с FreeType или ImageMagick.',
-  'Get a new code' => 'Получить новый код',
+  'Get a new code' => 'Обновить',
   'Go to page: ' => 'Перейти к странице: ',
   'In order to use MIME-type validation provided by CFileValidator fileinfo PECL extension should be installed.' => 'Для того, чтобы использовать валидацию CFileValidator по MIME-типу, установите PECL-расширение fileinfo.',
   'Internal error while generating hash.' => 'Внутренняя ошибка при генерации хеша.',

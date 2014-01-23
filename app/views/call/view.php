@@ -10,7 +10,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-array('label'=>'List Call', 'url'=>array('index')),
+array('label'=>Yii::t('main','List Call'), 'url'=>array('index')),
 //array('label'=>'Create Call', 'url'=>array('create')),
 //array('label'=>'Update Call', 'url'=>array('update', 'id'=>$model->id)),
 //array('label'=>'Delete Call', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
