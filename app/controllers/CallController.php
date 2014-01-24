@@ -204,7 +204,7 @@ class CallController extends EController
             $prs['status_id'] = $itm->id;
             $l1[$itm->id]=array('label'=>$itm->name, 'url'=>$this->createUrl($this->route, $prs));
         }
-        $l1[$status_id]['class']='active';
+        $l1[$status_id]['active']='active';
 
         $criteria=new CDbCriteria;
         if($group_id!=null)

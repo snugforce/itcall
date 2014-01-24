@@ -17,6 +17,19 @@ array('label'=>Yii::t('main','List Call'), 'url'=>array('index')),
 //array('label'=>'Manage Call', 'url'=>array('admin')),
 );
 ?>
+
+<?php /* $this->widget('bootstrap.widgets.TbDetailView',array(
+    'htmlOptions' => array(
+        'class' => 'table table-striped table-condensed table-hover',
+    ),
+    'data'=>$model,
+    'attributes'=>array(
+        'id',
+        'name',
+    ),
+));*/
+?>
+
 <div class="row">
     <div class="span6">
         <div class="row">

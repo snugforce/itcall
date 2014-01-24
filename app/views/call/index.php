@@ -15,10 +15,8 @@ $this->menu=array(
     );
 ?>
 <h2><?php if (!is_null($group)) {echo $group->attributes['name'];}else {echo '';}?></h2>
-<?php
-    echo TbHtml::buttonGroup($buttons,
-        array('toggle' => TbHtml::BUTTON_TOGGLE_RADIO, 'color' => TbHtml::BUTTON_COLOR_PRIMARY, ));// 'class'=>'pull-right'
-?>
+
+<?php echo TbHtml::pills($buttons); ?>
 
 <?php
     $this->widget('bootstrap.widgets.TbGridView',array(

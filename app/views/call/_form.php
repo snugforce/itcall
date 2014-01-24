@@ -46,14 +46,12 @@
         echo $form->textField($model, 'verifyCode',array('span'=>1,'maxlength'=>4,'class'=>'offset1', 'type'=>'number'));
         $form->widget('CCaptcha', array('showRefreshButton'=>false, 'clickableImage'=>true,
             'imageOptions' => array('title' => 'Обновить', 'style' => 'cursor: pointer;',)));
-
-
         echo '</div>';
         echo '</div>';
     }
     ?>
 
-        <div class="form-actions">
+    <div class="form-actions">
         <?php echo TbHtml::submitButton($model->isNewRecord ? Yii::t('main', 'Create') : Yii::t('main', 'Save'),array(
 		    'color'=>TbHtml::BUTTON_COLOR_PRIMARY,
 		    'size'=>TbHtml::BUTTON_SIZE_LARGE,

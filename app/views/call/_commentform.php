@@ -47,7 +47,7 @@ Yii::app()->getClientScript()->registerScript('check', $checkJS);
             ?>
             </div>
         <div class="form-actions" style="margin-top:0;">
-        <?php echo TbHtml::submitButton($model->isNewRecord ? 'Create' : 'Save',array(
+        <?php echo TbHtml::submitButton($model->isNewRecord ? Yii::t('main','Create') : Yii::t('main','Save'),array(
 		    'color'=>TbHtml::BUTTON_COLOR_PRIMARY,
 		    //'size'=>TbHtml::BUTTON_SIZE_LARGE,
 		)); ?>
