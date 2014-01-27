@@ -56,4 +56,7 @@ return array(
     'Change group' => 'Для начала выберите раздел:',
 	'Captcha' => 'Введите текст справа',
 	'List Call' => 'Заявки',
+
+    /* Comment */
+    'Public' => 'Опубликовать',
 );

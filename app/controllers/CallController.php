@@ -77,7 +77,7 @@ class CallController extends EController
                 'foreColor'=>0x0072E6,
                 'backend'=>null,
                 'offset'=>0,
-                'fontFile'=>'css\fonts\Den.otf',
+                'fontFile'=>'css/fonts/Den.otf',
             ),
         );
 
@@ -198,14 +198,6 @@ class CallController extends EController
 	public function actionIndex($status_id=null, $group_id=null)
 	{
         if($status_id==null) $status_id = 1;
-
-        $prs = $_GET;
-        foreach(Status::model()->findAll() as $itm){
-            $prs['status_id'] = $itm->id;
-            $l1[$itm->id]=array('label'=>$itm->name, 'url'=>$this->createUrl($this->route, $prs));
-        }
-        $l1[$status_id]['active']='active';
-
         $criteria=new CDbCriteria;
         if($group_id!=null)
             $criteria->addCondition('group_id='.$group_id);
@@ -221,17 +213,27 @@ class CallController extends EController
                     'pageSize'=>15,
                 ),
             ));
+
+        $prs = $_GET;
+        foreach(Status::model()->findAll() as $itm){
+            $prs['status_id'] = $itm->id;
+            $l1[$itm->id]=array('label'=>$itm->name.' '.
+                TbHtml::badge(Call::model()->count('status_id='.$itm->id), array('color' => TbHtml::BADGE_COLOR_WARNING)),
+                'url'=>$this->createUrl($this->route, $prs));
+        }
+        $l1[$status_id]['active']='active';
+
         //$group = new Group;
         $group = null;
         if ($group_id!=null) $group=Group::model()->findByPk($group_id);
 
 
-		$this->render('index',array(
+        $this->render('index',array(
             'dataProvider'=>$dataProvider,
             'group_id'=>$group_id,
             'group'=>$group,
             'status_id'=>$status_id,
             'buttons'=>$l1,
-		));
+        ));
 	}
 }

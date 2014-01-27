@@ -70,8 +70,11 @@ class Call extends CActiveRecord
 			'group' => array(self::BELONGS_TO, 'Group', 'group_id'),
 			'status' => array(self::BELONGS_TO, 'Status', 'status_id'),
 			'comments' => array(self::HAS_MANY, 'Comment', 'call_id',
-				'order'=>'comments.create_time DESC'),
+				'order'=>'create_time DESC'),
 			'commentCount' => array(self::STAT, 'Comment', 'call_id'),
+            'publicCommentCount' => array(self::STAT, 'Comment', 'call_id', 'condition'=>'public=1'),
+            'publicComments' => array(self::HAS_MANY, 'Comment', 'call_id',
+                'condition'=>'public=1', 'order'=>'create_time DESC'),
 		);
 	}
 
@@ -165,5 +168,5 @@ class Call extends CActiveRecord
 		}
 		else
 			return false;
-	}	
+    }
 }

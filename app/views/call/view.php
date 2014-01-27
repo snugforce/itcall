@@ -18,63 +18,34 @@ array('label'=>Yii::t('main','List Call'), 'url'=>array('index')),
 );
 ?>
 
-<?php /* $this->widget('bootstrap.widgets.TbDetailView',array(
-    'htmlOptions' => array(
-        'class' => 'table table-striped table-condensed table-hover',
-    ),
-    'data'=>$model,
-    'attributes'=>array(
-        'id',
-        'name',
-    ),
-));*/
-?>
 
 <div class="row">
     <div class="span6">
-        <div class="row">
-            <div class="span3">
-                <h3><?php echo Yii::t('main','Number').': '; ?></h3>
-            </div>
-            <div class="span3">
-                <h3><?php echo TbHtml::b($model->id); ?></h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="span3">
-                <h3><?php echo Yii::t('main','Create Time').': '; ?></h3>
-            </div>
-            <div class="span3">
-                <h3><?php echo TbHtml::b(date( "d.m.y H:i",  $model->create_time)); ?></h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="span3">
-                <h3><?php echo Yii::t('main','Office').': '; ?></h3>
-            </div>
-            <div class="span3">
-                <h3><?php echo TbHtml::b($model->office); ?></h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="span3">
-                <h3><?php echo Yii::t('main','Category').': '; ?></h3>
-            </div>
-            <div class="span3">
-                <h3><?php echo TbHtml::b($model->category->name); ?></h3>
-            </div>
-        </div>
+        <?php  $this->widget('bootstrap.widgets.TbDetailView',array(
+            'htmlOptions' => array(
+                'class' => 'table table-striped table-condensed table-hover',
+            ),
+            'data'=>$model,
+
+            'attributes'=>array(
+                array('label'=>Yii::t('main','Number'), 'name' => 'id',),
+                array('label'=>Yii::t('main','Create Time'), 'value' => date( "d.m.y H:i",  $model->create_time),),
+                array('label'=>Yii::t('main','Office'), 'value' => $model->office,),
+                array('label'=>Yii::t('main','Category'), 'type'=>'raw','value' => $model->category->name,),
+            ),
+        ));
+        ?>
         <hr>
         <div class="row">
             <div class="span6">
-                <?php echo TbHtml::lead(nl2br(CHtml::encode($model->txt)));
+                <?php echo nl2br(CHtml::encode($model->txt));
                 ?>
             </div>
         </div>
         <div class="row">
             <div class="span6">
-            <?php echo Yii::t('main','Update Time').': '.
-                TbHtml::b(date( "d.m.y H:i",  $model->update_time)).', '.
+            <?php echo TbHtml::small(Yii::t('main','Update Time').': '.
+                TbHtml::b(date( "d.m.y H:i",  $model->update_time)).', ').
                 TbHtml::well($model->status->name, array('style'=>'background-color:'.$model->status->color.';')); ?>
             </div>
         </div>
@@ -102,5 +73,21 @@ array('label'=>Yii::t('main','List Call'), 'url'=>array('index')),
             )); ?>
         <?php endif; ?>
     </div>
+    <?php endif; ?>
+    <?php if(Yii::app()->user->isGuest): ?>
+        <div class="span6">
+            <?php if($model->publicCommentCount>=1): ?>
+
+                <h3>
+                    <?php echo TbHtml::icon(TbHtml::ICON_PENCIL).' ' .
+                        Yii::t('main','comments '). '(' . $model->publicCommentCount . ')'; ?>
+                </h3>
+
+                <?php $this->renderPartial('_comments',array(
+                    'call'=>$model,
+                    'comments'=>$model->publicComments,
+                )); ?>
+            <?php endif; ?>
+        </div>
     <?php endif; ?>
 </div>

@@ -10,6 +10,7 @@
  * @property integer $create_time
  * @property integer $status_id
  * @property string $txt
+ * @property string $public
  *
  * The followings are the available model relations:
  * @property Call $call
@@ -40,7 +41,7 @@ class Comment extends CActiveRecord
 			array('txt', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, call_id, create_time, status_id, txt', 'safe', 'on'=>'search'),
+			array('id, user_id, call_id, create_time, status_id, txt, public', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -70,6 +71,7 @@ class Comment extends CActiveRecord
 			'create_time' => 'Create Time',
 			'status_id' => 'Status',
 			'txt' => 'Txt',
+            'public' => Yii::t('main','Public'),
 		);
 	}
 	
@@ -110,6 +112,7 @@ class Comment extends CActiveRecord
 		$criteria->compare('create_time',$this->create_time);
 		$criteria->compare('status_id',$this->status_id);
 		$criteria->compare('txt',$this->txt,true);
+        $criteria->compare('public',$this->public);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

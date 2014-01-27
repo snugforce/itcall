@@ -33,7 +33,7 @@ Yii::app()->getClientScript()->registerScript('check', $checkJS);
 
     <p class="help-block"><?php echo TbHtml::small(Yii::t('main','Fields with * are required.'));?></p>
     <?php //echo $form->errorSummary($model); ?>
-            <?php echo $form->textArea($model,'txt',array('rows'=>6,'span'=>6, 'style'=>'resize:vertical;')); ?>
+            <?php echo $form->textArea($model,'txt',array('rows'=>3,'span'=>6, 'style'=>'resize:vertical;')); ?>
             <?php //echo $form->checkBoxControlGroup($model,'checkStatus', array('label' => Yii::t('main','Change status'),'checked'=>'checked'));
             ?>
             <div>
@@ -46,6 +46,10 @@ Yii::app()->getClientScript()->registerScript('check', $checkJS);
 				array('span'=>3,'displaySize'=>0,'id'=>'dropDownListStatus','disabled'=>true));
             ?>
             </div>
+            <?php
+                echo $form->checkBoxControlGroup($model, 'public');
+
+            ?>
         <div class="form-actions" style="margin-top:0;">
         <?php echo TbHtml::submitButton($model->isNewRecord ? Yii::t('main','Create') : Yii::t('main','Save'),array(
 		    'color'=>TbHtml::BUTTON_COLOR_PRIMARY,
