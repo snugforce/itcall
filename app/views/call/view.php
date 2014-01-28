@@ -23,7 +23,7 @@ array('label'=>Yii::t('main','List Call'), 'url'=>array('index')),
     <div class="span6">
         <?php  $this->widget('bootstrap.widgets.TbDetailView',array(
             'htmlOptions' => array(
-                'class' => 'table table-striped table-condensed table-hover',
+                'class' => '',
             ),
             'data'=>$model,
 
@@ -35,13 +35,17 @@ array('label'=>Yii::t('main','List Call'), 'url'=>array('index')),
             ),
         ));
         ?>
-        <hr>
+
         <div class="row">
             <div class="span6">
-                <?php echo nl2br(CHtml::encode($model->txt));
-                ?>
+
+                <?php echo TbHtml::b(Yii::t('main', 'Description'));?>
+                <?php //echo nl2br(CHtml::encode($model->txt));?>
+                <?php echo TbHtml::textAreaControlGroup('Description', nl2br(CHtml::encode($model->txt)),
+                    array('span' => 6, 'rows' => 3, 'readonly'=>'readonly', 'style'=>'resize:none;border: 0;cursor: auto;')); ?>
             </div>
         </div>
+        <hr>
         <div class="row">
             <div class="span6">
             <?php echo TbHtml::small(Yii::t('main','Update Time').': '.
@@ -61,7 +65,6 @@ array('label'=>Yii::t('main','List Call'), 'url'=>array('index')),
     <?php if(!Yii::app()->user->isGuest): ?>
     <div class="span6">
         <?php if($model->commentCount>=1): ?>
-
             <h3>
                 <?php echo TbHtml::icon(TbHtml::ICON_PENCIL).' ' .
                     Yii::t('main','comments '). '(' . $model->commentCount . ')'; ?>

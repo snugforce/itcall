@@ -47,8 +47,7 @@ Yii::app()->getClientScript()->registerScript('check', $checkJS);
             ?>
             </div>
             <?php
-                echo $form->checkBoxControlGroup($model, 'public');
-
+                echo $form->checkBoxControlGroup($model, 'public', array('rel'=>'1'));
             ?>
         <div class="form-actions" style="margin-top:0;">
         <?php echo TbHtml::submitButton($model->isNewRecord ? Yii::t('main','Create') : Yii::t('main','Save'),array(

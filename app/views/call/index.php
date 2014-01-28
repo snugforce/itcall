@@ -19,6 +19,7 @@ $this->menu=array(
 <?php echo TbHtml::pills($buttons); ?>
 
 <?php
+
     $this->widget('bootstrap.widgets.TbGridView',array(
         'type'=>'striped bordered condensed',
         'dataProvider'=>$dataProvider,
@@ -30,7 +31,13 @@ $this->menu=array(
             array('name' => 'category_id', 'htmlOptions' => array('style' =>'width: 100px'), 'sortable' => false, 'value'=>'$data->category->name',),
             array('name' => 'txt', 'htmlOptions' => array('style' =>''), 'sortable' => false,),
             array('name' => 'create_time', 'htmlOptions' => array('style' =>'width: 100px'), 'sortable' => false, 'value'=>'date( "d.m.y H:i",  $data->create_time)',),
-            array('class'=>'bootstrap.widgets.TbButtonColumn', 'htmlOptions' => array('nowrap'=>'nowrap', 'style'=>'width: 20px;'),	'template'=>'{view}',),
+            array(
+                'name' => '',
+                'value' => 'TbHtml::link("Открыть", Yii::app()->controller->createUrl("view",array("id"=>$data->primaryKey)))',
+                'type' => 'html',
+                'htmlOptions' => array('nowrap'=>'nowrap', 'style'=>'width: 20px;'),
+            ),
+            //array('class'=>'bootstrap.widgets.TbButtonColumn', 'htmlOptions' => array('nowrap'=>'nowrap', 'style'=>'width: 20px;'),	'template'=>'{view}',),
         ),
     ));
 ?>

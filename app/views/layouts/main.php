@@ -82,13 +82,17 @@ $this->widget('bootstrap.widgets.TbNavbar', array(
 
             ),
         ),
-        array(
+        /*array(
             'class' => 'bootstrap.widgets.TbNav',
             'items' => array(
                 array('label'=> Yii::t('main','Journals'), 'url'=>'#',
                     'items' => Group::listData(),
                 ),
             ),
+        ),*/
+        array(
+            'class' => 'bootstrap.widgets.TbNav',
+            'items' => Group::listData(),
         ),
         array(
             'class' => 'bootstrap.widgets.TbNav',

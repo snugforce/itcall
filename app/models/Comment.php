@@ -39,6 +39,7 @@ class Comment extends CActiveRecord
 			array('call_id, status_id', 'required'),
 			array('user_id, call_id, create_time, status_id', 'numerical', 'integerOnly'=>true),
 			array('txt', 'safe'),
+            array('public', 'boolean'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, user_id, call_id, create_time, status_id, txt, public', 'safe', 'on'=>'search'),
