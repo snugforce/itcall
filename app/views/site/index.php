@@ -16,7 +16,7 @@
                         'color' =>TbHtml::BUTTON_COLOR_PRIMARY,
                         'size' => TbHtml::BUTTON_SIZE_LARGE,
                         'icon'=>TbHtml::ICON_OK,
-                        'url'=>'/Call/create?group_id='.$m['id']));
+                        'url'=> '/Call/create?group_id='.$m['id']));
         }
     ?>
     <?php $this->widget('bootstrap.widgets.TbHeroUnit', array(

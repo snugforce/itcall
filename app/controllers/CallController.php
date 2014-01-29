@@ -215,10 +215,16 @@ class CallController extends EController
             ));
 
         $prs = $_GET;
+        $cr = new CDbCriteria;
+
         foreach(Status::model()->findAll() as $itm){
+            $cr->condition ='';
+            $cr->addCondition('status_id='.$itm->id);
+            if($group_id!=null)
+              $cr->addCondition('group_id='.$group_id);
             $prs['status_id'] = $itm->id;
             $l1[$itm->id]=array('label'=>$itm->name.' '.
-                TbHtml::badge(Call::model()->count('status_id='.$itm->id), array('color' => TbHtml::BADGE_COLOR_WARNING)),
+                TbHtml::badge(Call::model()->count($cr), array('color' => TbHtml::BADGE_COLOR_WARNING)),
                 'url'=>$this->createUrl($this->route, $prs));
         }
         $l1[$status_id]['active']='active';
