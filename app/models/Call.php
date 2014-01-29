@@ -71,6 +71,7 @@ class Call extends CActiveRecord
 			'status' => array(self::BELONGS_TO, 'Status', 'status_id'),
 			'comments' => array(self::HAS_MANY, 'Comment', 'call_id',
 				'order'=>'create_time DESC'),
+            'newcall' => array(self::HAS_MANY, 'Newcall', 'call_id'),
 			'commentCount' => array(self::STAT, 'Comment', 'call_id'),
             'publicCommentCount' => array(self::STAT, 'Comment', 'call_id', 'condition'=>'public=1'),
             'publicComments' => array(self::HAS_MANY, 'Comment', 'call_id',
@@ -169,4 +170,10 @@ class Call extends CActiveRecord
 		else
 			return false;
     }
+    protected function afterSave()
+    {
+        parent::afterSave();
+        Newcall::AddNews($this->id);
+    }
+
 }

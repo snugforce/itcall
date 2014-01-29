@@ -57,7 +57,11 @@ class CallController extends EController
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('index', 'view', 'create', 'captcha',),
 				'roles' => array('guest'),
-			),			
+			),
+            array('allow',
+                'actions'=>array('news'),
+                'roles' => array('user'),
+            ),
 			array('deny',  // deny all users
 				'roles' => array('guest'),
 			),						
@@ -100,6 +104,7 @@ class CallController extends EController
             'model'=>$model,
 			'comment'=>$comment,
         ));
+        Newcall::RemoveNews($id);
     }	
 	
 	protected function newComment($model)
@@ -242,4 +247,26 @@ class CallController extends EController
             'buttons'=>$l1,
         ));
 	}
+    public function actionNews()
+    {
+        $model=Call::model()->with(array(
+            'newcall'=>array(
+                // записи нам не нужны
+                'select'=>false,
+                'joinType'=>'INNER JOIN',
+                'condition'=>'newcall.user_id='.Yii::app()->user->id,
+            ),
+        ))->findAll();
+
+        $dataProvider=new CActiveDataProvider($model,
+            array(
+                'pagination'=>array(
+                    'pageSize'=>15,
+                ),
+            ));
+
+        $this->render('news',array(
+            'dataProvider'=>$dataProvider,
+        ));
+    }
 }

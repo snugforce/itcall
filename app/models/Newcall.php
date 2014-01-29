@@ -25,6 +25,37 @@ class Newcall extends CActiveRecord
 	/**
 	 * @return array validation rules for model attributes.
 	 */
+
+    public static function AddNews($call_id){
+        foreach(User::model()->findAll() as $usr){
+            if ($usr->role!='administrator')
+            {
+                $nc = new Newcall();
+                $nc->user_id = $usr->id;
+                $nc->call_id = $call_id;
+                $nc->save();
+            }
+        }
+    }
+    public static function RemoveNews($call_id)
+    {
+        $user_id = Yii::app()->user->id;
+        if ($user_id!=null){
+            $criteria=new CDbCriteria;
+            $criteria->addCondition('call_id='.$call_id);
+            $criteria->addCondition('user_id='.$user_id);
+            Newcall::model()->deleteAll($criteria);
+        }
+    }
+    public static function RemoveAllNews()
+    {
+        $user_id = Yii::app()->user->id;
+        if ($user_id!=null){
+            $criteria=new CDbCriteria;
+            $criteria->addCondition('user_id='.$user_id);
+            Newcall::model()->deleteAll($criteria);
+        }
+    }
 	public function rules()
 	{
 		// NOTE: you should only define rules for those attributes that
