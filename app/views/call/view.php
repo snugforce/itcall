@@ -41,7 +41,7 @@ array('label'=>Yii::t('main','List Call'), 'url'=>array('index')),
 
                 <?php echo TbHtml::b(Yii::t('main', 'Description'));?>
                 <?php //echo nl2br(CHtml::encode($model->txt));?>
-                <?php echo TbHtml::textAreaControlGroup('Description', nl2br(CHtml::encode($model->txt)),
+                <?php echo TbHtml::textAreaControlGroup('Description', (CHtml::encode($model->txt)),
                     array('span' => 6, 'rows' => 3, 'readonly'=>'readonly', 'style'=>'resize:none;border: 0;cursor: auto;')); ?>
             </div>
         </div>

@@ -5,11 +5,15 @@
         if ($image == ''){
             $image = '/img/users/noimage.png';
         }
+        $s ='';
+        if ($comment->public > 0){
+            $s = ', '.TbHtml::code(Yii::t('main','Published'), array('style'=>'color: blue;'));
+        }
         $mas[$comment->id] = array(
             'image' => $image,
             'heading' => TbHtml::small(TbHtml::b($comment->user->name). ', '.
                 date( "d.m.y H:i", $comment->create_time).', '.
-                TbHtml::code($comment->status->name)),
+                TbHtml::code($comment->status->name).$s),
             'content' => nl2br(CHtml::encode($comment->txt)),
             'class' => 'comment',
         );
