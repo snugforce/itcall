@@ -31,7 +31,7 @@ $this->menu=array(
             array('name' => 'category_id', 'htmlOptions' => array('style' =>'width: 100px'), 'sortable' => false, 'value'=>'$data->category->name',),
             array(
                 'name' => '',
-                'value' => 'TbHtml::linkButton("Открыть",
+                'value' => 'TbHtml::linkButton(Yii::t("main","View"),
                     array(
                         "block" => true,
                         "color" =>TbHtml::BUTTON_COLOR_SUCCESS,
