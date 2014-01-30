@@ -116,15 +116,16 @@ class CallController extends EController
 			echo CActiveForm::validate($comment);
 			Yii::app()->end();
 		}
-	 
+
+
 		if(isset($_POST['Comment']))
 		{
 			$comment->attributes=$_POST['Comment'];
-            if ($comment->status_id == null){$comment->status_id = $model->status_id;}
-			if($model->addComment($comment))
-			{
-				$this->refresh();
-			}
+            if ($comment->txt!=''){
+                if ($comment->status_id == null){$comment->status_id = $model->status_id;}
+                if($model->addComment($comment))
+                    $this->refresh();
+            }
 		}
 		return $comment;
 	}

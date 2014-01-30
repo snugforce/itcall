@@ -36,7 +36,7 @@ class Comment extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('call_id, status_id, txt', 'required'),
+			array('call_id, status_id', 'required'),
 			array('user_id, call_id, create_time, status_id', 'numerical', 'integerOnly'=>true),
 			array('txt', 'safe'),
             array('public', 'boolean'),
