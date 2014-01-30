@@ -68,8 +68,8 @@ $this->widget('bootstrap.widgets.TbNavbar', array(
         array(
             'class' => 'bootstrap.widgets.TbNav',
             'items' => array(
-                array('label' => Yii::t('main','Home'), 'url' => '/',),
-                array('label' => Yii::t('main','Reference'), 'url' => '#',
+                array('label' => Yii::t('main','Home'), 'url' => '/call/news',),
+                array('label' => Yii::t('main','Reference'), 'url' => '',
                     'items' => array(
                         array('label' => Yii::t('main','Status'), 'url' => '/Status'),
                         array('label' => Yii::t('main','Category'), 'url' => '/Category'),

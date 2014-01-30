@@ -59,7 +59,7 @@ class CallController extends EController
 				'roles' => array('guest'),
 			),
             array('allow',
-                'actions'=>array('news'),
+                'actions'=>array('news', 'readall', 'read',),
                 'roles' => array('user'),
             ),
 			array('deny',  // deny all users
@@ -247,6 +247,19 @@ class CallController extends EController
             'buttons'=>$l1,
         ));
 	}
+
+    public function actionReadall()
+    {
+        Newcall::RemoveAllNews();
+        $this->redirect(array('news'));
+    }
+
+    public function actionRead($id)
+    {
+        Newcall::RemoveNews($id);
+        $this->redirect(array('news'));
+    }
+
     public function actionNews()
     {
         $model=Call::model()->with(array(
@@ -255,15 +268,16 @@ class CallController extends EController
                 'select'=>false,
                 'joinType'=>'INNER JOIN',
                 'condition'=>'newcall.user_id='.Yii::app()->user->id,
+                'order' => 'update_time',
             ),
         ))->findAll();
-
-        $dataProvider=new CActiveDataProvider($model,
+        $dataProvider = new CArrayDataProvider($model,
             array(
                 'pagination'=>array(
-                    'pageSize'=>15,
-                ),
-            ));
+                'pageSize'=>15,
+            ),));
+
+
 
         $this->render('news',array(
             'dataProvider'=>$dataProvider,
