@@ -35,7 +35,8 @@
   ],
   "require":{
     "yiisoft/yii":"1.1.14",
-    "2amigos/yiiwheels":"1.0.3"
+    "2amigos/yiiwheels":"1.0.3",
+    "mouf/javascript.jquery.jquery-colorpicker": "1.0.x-dev"
   },
   "autoload":{
     "psr-0":{

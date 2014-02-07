@@ -43,7 +43,7 @@ $this->menu=array(
                         "size" => TbHtml::BUTTON_SIZE_MINI,
 
                         "icon"=>TbHtml::ICON_OK,
-                        "url"=> Yii::app()->controller->createUrl("read",array("id"=>$data->primaryKey)),
+                        "url"=> Yii::app()->controller->createUrl("call/read",array("id"=>$data->primaryKey)),
                     ))',
                     'type' => 'html',
                     'htmlOptions' => array('nowrap'=>'nowrap', 'style'=>'width: 10px;text-align: center;'),
@@ -57,7 +57,7 @@ $this->menu=array(
                        // "color" =>TbHtml::BUTTON_COLOR_SUCCESS,
                         "size" => TbHtml::BUTTON_SIZE_MINI,
                         "icon"=>TbHtml::ICON_EYE_OPEN,
-                        "url"=> Yii::app()->controller->createUrl("view",array("id"=>$data->primaryKey)),
+                        "url"=> Yii::app()->createUrl("call/view",array("id"=>$data->primaryKey)),
                     ))',
                     'type' => 'html',
                     'htmlOptions' => array('nowrap'=>'nowrap', 'style'=>'width: 10px;text-align: center;'),
