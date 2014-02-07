@@ -64,7 +64,37 @@ CREATE TABLE tbl_comment
 		REFERENCES tbl_call (id) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT FK_comment_user FOREIGN KEY (user_id)
 		REFERENCES tbl_user (id) ON DELETE SET NULL ON UPDATE CASCADE
-	
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE tbl_task
+(
+	id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,	
+	user_id INTEGER,
+	title VARCHAR(128) NOT NULL,
+	txt TEXT,
+	create_time INTEGER,
+	update_time INTEGER,
+	status_id INTEGER,
+	CONSTRAINT FK_task_user FOREIGN KEY (user_id)
+		REFERENCES tbl_user (id) ON DELETE SET NULL ON UPDATE CASCADE,
+	CONSTRAINT FK_call_status FOREIGN KEY (status_id)
+		REFERENCES tbl_status (id) ON DELETE SET NULL ON UPDATE CASCADE	
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE tbl_taskcomment
+(
+	id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	user_id INTEGER,
+	task_id INTEGER NOT NULL,
+	create_time INTEGER,
+	status_id INTEGER,
+	txt TEXT,
+	CONSTRAINT FK_taskcomment_status FOREIGN KEY (status_id)
+		REFERENCES tbl_status (id) ON DELETE SET NULL ON UPDATE CASCADE,
+	CONSTRAINT FK_taskcomment_task FOREIGN KEY (task_id)
+		REFERENCES tbl_task (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT FK_taskcomment_user FOREIGN KEY (user_id)
+		REFERENCES tbl_user (id) ON DELETE SET NULL ON UPDATE CASCADE	
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE tbl_newcall

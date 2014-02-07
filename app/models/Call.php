@@ -174,6 +174,7 @@ class Call extends CActiveRecord
     {
         parent::afterSave();
         Newcall::AddNews($this->id);
+
     }
 
 }

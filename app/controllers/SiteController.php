@@ -11,9 +11,33 @@
  */
 class SiteController extends EController
 {
+    public $layout='//layouts/main';
+
+    public $menu=array();
+
+    public function accessRules()
+    {
+        return array(
+            array('allow', // allow admin user to perform 'admin' and 'delete' actions
+                'actions'=>array('index', 'error', 'login', 'logout',),
+                'roles' => array('guest'),
+            ),
+            array('allow',
+                'actions'=>array('news', 'readall', 'read',),
+                'roles' => array('user'),
+            ),
+            array('deny',  // deny all users
+                'roles' => array('guest'),
+            ),
+        );
+    }
 	public function actionIndex()
 	{
-		$this->render('index');
+        $user_id = Yii::app()->user->id;
+        if ($user_id==null)
+            $this->render('index');
+        else
+            $this->actionNews();
 	}
 
 	/**
@@ -50,7 +74,7 @@ class SiteController extends EController
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login())
 				//$this->redirect(Yii::app()->user->returnUrl);
-                Yii::app()->request->redirect('/call/news');
+                Yii::app()->request->redirect('news');
 		}
 		// display the login form
 		$this->render('login',array('model'=>$model));
@@ -63,5 +87,42 @@ class SiteController extends EController
 	{
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
-	}	
+	}
+
+    public function actionReadall()
+    {
+        Newcall::RemoveAllNews();
+        $this->redirect(array('news'));
+    }
+
+    public function actionRead($id)
+    {
+        Newcall::RemoveNews($id);
+        $this->redirect(array('news'));
+    }
+
+    public function actionNews()
+    {
+        $model=Call::model()->with(array(
+            'newcall'=>array(
+                // записи нам не нужны
+                'select'=>false,
+                'joinType'=>'INNER JOIN',
+                'condition'=>'newcall.user_id='.Yii::app()->user->id,
+                'order' => 'update_time',
+            ),
+        ))->findAll();
+        $dataProvider = new CArrayDataProvider($model,
+            array(
+                'pagination'=>array(
+                    'pageSize'=>15,
+                ),));
+
+
+
+        $this->render('news',array(
+            'dataProvider'=>$dataProvider,
+        ));
+    }
+
 }

@@ -15,6 +15,15 @@ $this->menu=array(
     );
 ?>
 
+<div class="row">
+    <div class="span9">
+        <h1><?php echo Yii::t('main', 'News'); ?></h1>
+    </div>
+    <div class="span3 text-right">
+        <?php echo TbHtml::buttonGroup($this->menu); ?>
+    </div>
+</div>
+<hr>
 
 
 <?php

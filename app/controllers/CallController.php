@@ -230,7 +230,7 @@ class CallController extends EController
               $cr->addCondition('group_id='.$group_id);
             $prs['status_id'] = $itm->id;
             $l1[$itm->id]=array('label'=>$itm->name.' '.
-                TbHtml::badge(Call::model()->count($cr), array('color' => TbHtml::BADGE_COLOR_WARNING)),
+                TbHtml::badge(Call::model()->count($cr), array('color' => TbHtml::BADGE_COLOR_INVERSE)),
                 'url'=>$this->createUrl($this->route, $prs));
         }
         $l1[$status_id]['active']='active';
@@ -248,40 +248,4 @@ class CallController extends EController
             'buttons'=>$l1,
         ));
 	}
-
-    public function actionReadall()
-    {
-        Newcall::RemoveAllNews();
-        $this->redirect(array('news'));
-    }
-
-    public function actionRead($id)
-    {
-        Newcall::RemoveNews($id);
-        $this->redirect(array('news'));
-    }
-
-    public function actionNews()
-    {
-        $model=Call::model()->with(array(
-            'newcall'=>array(
-                // записи нам не нужны
-                'select'=>false,
-                'joinType'=>'INNER JOIN',
-                'condition'=>'newcall.user_id='.Yii::app()->user->id,
-                'order' => 'update_time',
-            ),
-        ))->findAll();
-        $dataProvider = new CArrayDataProvider($model,
-            array(
-                'pagination'=>array(
-                'pageSize'=>15,
-            ),));
-
-
-
-        $this->render('news',array(
-            'dataProvider'=>$dataProvider,
-        ));
-    }
 }
