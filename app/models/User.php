@@ -10,20 +10,24 @@
  * @property string $password
  * @property string $role
  * @property string $login
+ * @property string $avatar
+ * @property string $phone
  *
  * The followings are the available model relations:
  * @property Comment[] $comments
+ * @property Newcall[] $newcalls
+ * @property Task[] $tasks
+ * @property Taskcomment[] $taskcomments
  * @property Group $group
+ * @property Usertask[] $usertasks
  */
- 
- 
 class User extends CActiveRecord
 {
 	const ROLE_ADMIN = 'administrator';
     const ROLE_MODER = 'moderator';
     const ROLE_USER = 'user';
     const ROLE_BANNED = 'banned';
-
+	
 	/**
 	 * @return string the associated database table name
 	 */
@@ -35,7 +39,7 @@ class User extends CActiveRecord
     protected function beforeSave(){
         $this->password = md5($this->password);
         return parent::beforeSave();
-    }
+    }	
 
 	/**
 	 * @return array validation rules for model attributes.
@@ -47,10 +51,11 @@ class User extends CActiveRecord
 		return array(
 			array('name, password, login', 'required'),
 			array('group_id', 'numerical', 'integerOnly'=>true),
-			array('name, password, login, role', 'length', 'max'=>128),
+			array('name, password, role, login, avatar', 'length', 'max'=>128),
+            array('phone', 'length', 'max'=>12),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, group_id, password, role, login', 'safe', 'on'=>'search'),
+			array('id, name, group_id, password, role, login, avatar, phone', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,7 +68,11 @@ class User extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'comments' => array(self::HAS_MANY, 'Comment', 'user_id'),
+			'newcalls' => array(self::HAS_MANY, 'Newcall', 'user_id'),
+			'tasks' => array(self::HAS_MANY, 'Task', 'user_id'),
+			'taskcomments' => array(self::HAS_MANY, 'Taskcomment', 'user_id'),
 			'group' => array(self::BELONGS_TO, 'Group', 'group_id'),
+			'usertasks' => array(self::HAS_MANY, 'Usertask', 'user_id'),
 		);
 	}
 
@@ -79,6 +88,8 @@ class User extends CActiveRecord
 			'password' => 'Password',
 			'role' => 'Role',
 			'login' => 'Login',
+			'avatar' => 'Avatar',
+            'phone' => 'Phone',
 		);
 	}
 
@@ -104,8 +115,10 @@ class User extends CActiveRecord
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('group_id',$this->group_id);
 		$criteria->compare('password',$this->password,true);
-		$criteria->compare('role',$this->role, true);
+		$criteria->compare('role',$this->role,true);
 		$criteria->compare('login',$this->login,true);
+		$criteria->compare('avatar',$this->avatar,true);
+        $criteria->compare('phone',$this->phone,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -29,6 +29,7 @@ array('label'=>Yii::t('main','List Call'), 'url'=>array('index')),
 
             'attributes'=>array(
                 array('label'=>Yii::t('main','Number'), 'name' => 'id',),
+                array('label'=>Yii::t('main','Group'), 'type'=>'raw','value' => $model->group->name,),
                 array('label'=>Yii::t('main','Create Time'), 'value' => date( "d.m.y H:i",  $model->create_time),),
                 array('label'=>Yii::t('main','Office'), 'value' => $model->office,),
                 array('label'=>Yii::t('main','Category'), 'type'=>'raw','value' => $model->category->name,),

@@ -1,5 +1,7 @@
 <?php
 
+require_once './../app/extensions/smsru.php';
+
 class CallController extends EController
 {
 	/**
@@ -129,8 +131,15 @@ class CallController extends EController
 		}
 		return $comment;
 	}
-	
 
+    protected function SendSMS(Call $call){
+        $api_id = "5247ab48-14a0-7934-69a8-90bc22c3e222";
+        $sms = new \Zelenin\smsru($api_id);
+        foreach($call->group->users as $usr){
+            if ($usr->phone!='')
+                $sms->sms_send($usr->phone, $call->office.': '.$call->txt, 'it.nchti.ru');
+        }
+    }
 
 	/**
 	 * Creates a new model.
@@ -151,7 +160,10 @@ class CallController extends EController
 		{
 			$model->attributes=$_POST['Call'];
 			if($model->save())
+            {
+                $this->SendSMS($model);
                 $this->redirect(array('view','id'=>$model->id));
+            }
 		}
         $this->createAction('captcha')->getVerifyCode(True);
 
@@ -248,4 +260,5 @@ class CallController extends EController
             'buttons'=>$l1,
         ));
 	}
+
 }
